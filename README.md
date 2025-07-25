@@ -57,12 +57,6 @@ A modern, full-featured Learning Management System (LMS) built with the MERN sta
 
 ---
 
-## 🖼️ Screenshots
-
-> _Add screenshots or demo GIFs here for login, dashboard, course details, cart, etc._
-
----
-
 ## 🗂️ Project Structure
 
 ```
@@ -219,11 +213,6 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ---
 
-## 📄 License
-
-This project is for educational purposes only.
-
----
 
 ## 👨‍💻 Author
 
