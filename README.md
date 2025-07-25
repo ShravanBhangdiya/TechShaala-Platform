@@ -4,26 +4,6 @@ A modern, full-featured Learning Management System (LMS) built with the MERN sta
 
 ---
 
-## 📚 Table of Contents
-
-- [About the Project](#about-the-project)
-- [Tech Stack](#tech-stack)
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Environment Variables](#environment-variables)
-  - [Installation](#installation)
-  - [Running Locally](#running-locally)
-- [Usage Guide](#usage-guide)
-- [Development Notes](#development-notes)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-- [License](#license)
-- [Author](#author)
-
----
 
 ## 📝 About the Project
 
