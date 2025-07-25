@@ -5,7 +5,7 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { AuthContext } from "@/context/auth-context";
 import { InstructorContext } from "@/context/instructor-context";
 import { fetchInstructorCourseListService } from "@/services";
-import { BarChart, Book, LogOut } from "lucide-react";
+import { BarChart, Book, LogOut, Code } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 
 function InstructorDashboardpage() {
@@ -55,7 +55,15 @@ function InstructorDashboardpage() {
     <div className="flex h-full min-h-screen bg-gray-100">
       <aside className="w-64 bg-white shadow-md hidden md:block">
         <div className="p-4">
-          <h2 className="text-2xl font-bold mb-4">Instructor View</h2>
+          <div className="flex items-center space-x-3 mb-6">
+            <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg">
+              <Code className="h-6 w-6 text-white" />
+            </div>
+            <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              TechShaala
+            </h2>
+          </div>
+          <h3 className="text-lg font-semibold mb-4 text-gray-700">Instructor Dashboard</h3>
           <nav>
             {menuItems.map((menuItem) => (
               <Button

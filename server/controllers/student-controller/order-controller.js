@@ -1,4 +1,5 @@
 const paypal = require("../../helpers/paypal");
+const mockPaypal = require("../../helpers/mock-paypal");
 const Order = require("../../models/Order");
 const Course = require("../../models/Course");
 const StudentCourses = require("../../models/StudentCourses");
@@ -40,13 +41,13 @@ const createOrder = async (req, res) => {
                 name: courseTitle,
                 sku: courseId,
                 price: coursePricing,
-                currency: "USD",
+                currency: "INR",
                 quantity: 1,
               },
             ],
           },
           amount: {
-            currency: "USD",
+            currency: "INR",
             total: coursePricing.toFixed(2),
           },
           description: courseTitle,
@@ -54,7 +55,8 @@ const createOrder = async (req, res) => {
       ],
     };
 
-    paypal.payment.create(create_payment_json, async (error, paymentInfo) => {
+    // Use mock PayPal for testing (no real PayPal credentials needed)
+    mockPaypal.createMockPayment(create_payment_json, async (error, paymentInfo) => {
       if (error) {
         console.log(error);
         return res.status(500).json({
@@ -95,6 +97,49 @@ const createOrder = async (req, res) => {
         });
       }
     });
+
+    // Uncomment this for real PayPal integration
+    // paypal.payment.create(create_payment_json, async (error, paymentInfo) => {
+    //   if (error) {
+    //     console.log(error);
+    //     return res.status(500).json({
+    //       success: false,
+    //       message: "Error while creating paypal payment!",
+    //     });
+    //   } else {
+    //     const newlyCreatedCourseOrder = new Order({
+    //       userId,
+    //       userName,
+    //       userEmail,
+    //       orderStatus,
+    //       paymentMethod,
+    //       paymentStatus,
+    //       orderDate,
+    //       paymentId,
+    //       payerId,
+    //       instructorId,
+    //       instructorName,
+    //       courseImage,
+    //       courseTitle,
+    //       courseId,
+    //       coursePricing,
+    //     });
+
+    //     await newlyCreatedCourseOrder.save();
+
+    //     const approveUrl = paymentInfo.links.find(
+    //       link => link.rel == "approval_url"
+    //     ).href;
+
+    //     res.status(201).json({
+    //       success: true,
+    //       data: {
+    //         approveUrl,
+    //         orderId: newlyCreatedCourseOrder._id,
+    //       },
+    //     });
+    //   }
+    // });
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -117,6 +162,9 @@ const capturePaymentAndFinalizeOrder = async (req, res) => {
       });
     }
 
+    // For mock PayPal, we'll simulate successful payment
+    // In real PayPal, you would verify the payment with PayPal API here
+    
     order.paymentStatus = "paid";
     order.orderStatus = "confirmed";
     order.paymentId = paymentId;

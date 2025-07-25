@@ -16,28 +16,51 @@ export default function AuthProvider({ children }) {
 
   async function handleRegisterUser(event) {
     event.preventDefault();
-    const data = await registerService(signUpFormData);
+    try {
+      const data = await registerService(signUpFormData);
+      console.log("Registration response:", data);
+      
+      if (data.success) {
+        // Clear form data after successful registration
+        setSignUpFormData(initialSignUpFormData);
+        // Optionally switch to sign in tab or show success message
+        alert("Registration successful! Please sign in.");
+      } else {
+        alert(data.message || "Registration failed!");
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("Registration failed! Please try again.");
+    }
   }
 
   async function handleLoginUser(event) {
     event.preventDefault();
-    const data = await loginService(signInFormData);
-    console.log(data, "datadatadatadatadata");
+    try {
+      const data = await loginService(signInFormData);
+      console.log("Login response:", data);
 
-    if (data.success) {
-      sessionStorage.setItem(
-        "accessToken",
-        JSON.stringify(data.data.accessToken)
-      );
-      setAuth({
-        authenticate: true,
-        user: data.data.user,
-      });
-    } else {
-      setAuth({
-        authenticate: false,
-        user: null,
-      });
+      if (data.success) {
+        sessionStorage.setItem(
+          "accessToken",
+          JSON.stringify(data.data.accessToken)
+        );
+        setAuth({
+          authenticate: true,
+          user: data.data.user,
+        });
+        // Clear form data after successful login
+        setSignInFormData(initialSignInFormData);
+      } else {
+        setAuth({
+          authenticate: false,
+          user: null,
+        });
+        alert(data.message || "Login failed!");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Login failed! Please check your credentials and try again.");
     }
   }
 
